@@ -1,0 +1,17 @@
+asyncio         # async I/O whenever possible
+aiocsv          # async CSV files
+aiofiles        # async file I/O
+aiohttp         # asynchronous HTTP/S
+aiohttp_client_cache # caching!
+argparse        # CLI commands and options
+bs4             # HTML parsing
+ciscoisesdk     # ISE Python REST API wrapper
+faker           # generate fake users, MACs, IPs
+
+pandas          # import and manipulate data in Pandas DataFrames
+PyYAML          # YAML
+requests        # synchronous HTTP/S
+tabulate        # dump data in tables
+urllib3
+aiohttp
+tabulate
