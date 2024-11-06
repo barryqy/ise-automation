@@ -11,7 +11,7 @@ For sample code, you can help in these primary ways:
 ## Using the issue tracker
 
 Use these issue tracker repos based on the content track:
-* https://github.com/barryqy/ise-automation-issues
+* https://github.com/barryqy/ise-automation/issues
 
 Use the issue tracker to suggest additions, report bugs, and ask questions.
 This is also a great way to connect with the developers of the project and find others interested in this solution.
