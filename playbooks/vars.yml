@@ -1,0 +1,4 @@
+ise_hostname: "{{ lookup('env', 'ISE_HOSTNAME') }}"
+ise_username: "{{ lookup('env', 'ISE_USERNAME') }}"
+ise_password: "{{ lookup('env', 'ISE_PASSWORD') }}"
+ise_verify: "{{ lookup('env', 'ISE_VERIFY') | default('no') }}"
