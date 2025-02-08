@@ -21,7 +21,7 @@
     #     trustForIseAuth: true
     #     validateCertificateExtensions: true
     #   with_fileglob:
-    #     - "/Users/rcampos/Downloads/RootCACert.pem"
+    #     - "/PATH/RootCACert.pem"
 
     - name: Generate CSR
       cisco.ise.csr_generate:
@@ -30,7 +30,7 @@
         ise_password: "{{ ise_password }}"
         ise_verify: "{{ ise_verify }}"
         allowWildCardCert: true
-        subjectCommonName: ise.securitydemo.net
+        subjectCommonName: ise.changeme.com
         subjectOrgUnit: Sample OU
         subjectOrg: Sample Org
         subjectCity: San Francisco
@@ -39,7 +39,7 @@
         keyType: ECDSA
         keyLength: 1024
         digestType: SHA-256
-        usedFor: MULTI-USEw
+        usedFor: MULTI-USE
       register: result
 
     - name: Set ID value to variable
@@ -71,5 +71,5 @@
         ims: true
         portal: true
       with_fileglob:
-        - /Users/rcampos/Downloads/RootCACert.pem
+        - /PATH/RootCACert.pem
       when: not ansible_check_mode
