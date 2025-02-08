@@ -30,7 +30,7 @@
         ise_password: "{{ ise_password }}"
         ise_verify: "{{ ise_verify }}"
         allowWildCardCert: true
-        subjectCommonName: ise.changeme.com
+        subjectCommonName: ise.securitydemo.net
         subjectOrgUnit: Sample OU
         subjectOrg: Sample Org
         subjectCity: San Francisco
@@ -42,6 +42,10 @@
         usedFor: MULTI-USE
       register: result
 
+    - name: Print generated CSR details
+      ansible.builtin.debug:
+        var: result
+        
     - name: Set ID value to variable
       ansible.builtin.set_fact:
         csr_id: "{{ result['ise_response']['response'][0]['id']}}"
