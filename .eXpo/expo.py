@@ -83,7 +83,11 @@ class CiscoExpoApi:
 
     def create_engagement(self):
         url = f"{BASE_URL}/engagements"
-        uid_file = "uid"
+        
+        # Get the directory of the current script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        uid_file = os.path.join(script_dir, "uid")
+        
         if not self._expo_uid:
             print("No datacenter chosen.")
             return
