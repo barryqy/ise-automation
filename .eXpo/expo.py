@@ -83,9 +83,19 @@ class CiscoExpoApi:
 
     def create_engagement(self):
         url = f"{BASE_URL}/engagements"
+        uid_file = "uid"
         if not self._expo_uid:
             print("No datacenter chosen.")
             return
+
+        # Check if UID file exists and is not empty
+        if os.path.exists(uid_file) and os.path.getsize(uid_file) > 0:
+            with open(uid_file, "r") as f:
+                stored_uid = f.read().strip()
+            if stored_uid:
+                print(f"You're already connected to a pod: {stored_uid}")
+                return  # Exit early if UID already exists
+        
         email = self.collect_email()
         data = {
             "email": email,
@@ -97,6 +107,12 @@ class CiscoExpoApi:
         response = self._request("POST", url, data)
         if response:
             pod = Engagement(**response)
+
+            # Write the new UID from pod.uid to the file
+            if hasattr(pod, "uid") and pod.uid:
+                with open(uid_file, "w") as f:
+                    f.write(pod.uid)
+            
             headers = {"Content-Type": "application/json"}
             data = pod.__dict__  # Convert class object to a dictionary
             try:
