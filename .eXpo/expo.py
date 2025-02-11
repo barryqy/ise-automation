@@ -142,7 +142,8 @@ class CiscoExpoApi:
 
     def collect_email(self):
         while True:
-            email = input("Enter your email address: ")
+            #email = input("Enter your email address: ")
+            email = "clemea25@ciscolive.com"
             if self.validate_email(email):
                 return(email)
                 break
