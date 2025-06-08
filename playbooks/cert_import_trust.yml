@@ -1,0 +1,24 @@
+---
+- hosts: ise_servers
+  gather_facts: false
+  name: Certificate management
+  tasks:
+    - name: Import certificate into ISE node
+      cisco.ise.trusted_certificate_import:
+        ise_hostname: "{{ ise_hostname }}"
+        ise_username: "{{ ise_username }}"
+        ise_password: "{{ ise_password }}"
+        ise_verify: "{{ ise_verify }}"
+        data: "{{ lookup('file', item) }}"
+        description: Root CA public certificate
+        name: RootCert
+        allowBasicConstraintCAFalse: true
+        allowOutOfDateCert: false
+        allowSHA1Certificates: true
+        trustForCertificateBasedAdminAuth: true
+        trustForCiscoServicesAuth: true
+        trustForClientAuth: true
+        trustForIseAuth: true
+        validateCertificateExtensions: true
+      with_fileglob:
+        - "certs/root.pem"
