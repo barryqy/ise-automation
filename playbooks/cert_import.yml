@@ -1,0 +1,53 @@
+- name: Import certificates into ISE
+  gather_facts: false
+  hosts: ise_servers
+  tasks:
+    - name: Read portal cert (local)
+      delegate_to: localhost
+      ansible.builtin.slurp:
+        src: "{{ playbook_dir }}/certs/cert.pem"
+      register: portal_cert_raw
+
+    - name: Read portal private key (local)
+      delegate_to: localhost
+      ansible.builtin.slurp:
+        src: "{{ playbook_dir }}/certs/privkey.pem"
+      register: portal_pvk_raw
+
+    - name: Import Portals system certificate on {{ ise_hostname }} via API
+      delegate_to: localhost
+      ansible.builtin.uri:
+        url: "https://{{ ise_hostname }}/api/v1/certs/system-certificate/import"
+        method: POST
+        url_username: "{{ ise_username }}"
+        url_password: "{{ ise_password }}"
+        force_basic_auth: yes
+        validate_certs: no
+        headers:
+          Content-Type: application/json
+        body_format: json
+        body:
+          admin: false
+          allowExtendedValidity: true
+          allowOutOfDateCert: true
+          allowPortalTagTransferForSameSubject: true
+          allowReplacementOfCertificates: true
+          allowReplacementOfPortalGroupTag: true
+          allowRoleTransferForSameSubject: true
+          allowSHA1Certificates: false
+          allowWildcardCertificates: true
+          validateCertificateExtensions: false
+          data: "{{ portal_cert_raw.content | b64decode }}"
+          eap: false
+          ims: false
+          name: "Portals"
+          privateKeyData: "{{ portal_pvk_raw.content | b64decode }}"
+          password: "{{ ise_password }}"
+          portalGroupTag: "Default Portal Certificate Group"
+          pxgrid: false
+      register: ise_response
+
+    - name: Show API response
+      delegate_to: localhost
+      debug:
+        var: ise_response
