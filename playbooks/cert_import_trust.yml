@@ -21,4 +21,4 @@
         trustForIseAuth: true
         validateCertificateExtensions: true
       with_fileglob:
-        - "certs/root.pem"
+        - "{{ playbook_dir }}/certs/root.pem"
