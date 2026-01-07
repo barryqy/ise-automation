@@ -3,11 +3,7 @@ from expo import CiscoExpoApi  # make sure expo.py is present in the same folder
 api = CiscoExpoApi()
 
 # Access the eXpo
-<<<<<<< Updated upstream
-expo = api.get_expo("aa2luz73bvbj3mg0lk3zoklzq")
-=======
 expo = api.get_expo("3v1qrg682fecfx9cu21uak47d")
->>>>>>> Stashed changes
 print(f"Expo Name: {expo.name}")
 if api.choose_datacenter():
     # Create an engagement (replace with your email and demo UID)
